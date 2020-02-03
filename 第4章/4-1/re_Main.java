@@ -4,48 +4,53 @@ public class Book implements Comparable<Book>, Cloneable{
   private String title;
   private Date publishDate;
   private String comment;
-  
+
   @override
-  int HashCode(){
+  public int hashCode(){
     int r = 1;
-    r = r * 31 + title.HashCode();
-    r = r * 31 + publishDate.HashCode();
+    r = r * 31 + title.hashCode();
+    r = r * 31 + publishDate.hashCode();
     return r;
   }
 
   @override
   public boolean equals(Object obj){
-    if(this == o){
+    if(this == obj){
       return true;
     }
-    if(this == null){
+    if (o == null){
       return false;
     }
-    if(!(this instanceof Book)){
+    if(!(o instanceof Book)){
       return false;
     }
-    Book b = (Book) obj
-    if(!title.equals(b.title)){
-      return false;
-    }
+    Book b = (Book) o;
     if(!publishDate.equals(b.publishDate)){
+      return false;
+    }
+    if(!title.equals(b.title)){
       return false;
     }
     return true;
   }
-
+  
   @override
-  public int CompareTo(Book o){
-    return this.publishDate.CompareTo(o.publishDate);
+  public int compareTo(Book obj){
+    if(this.publishDate < obj.publishDate){
+      return -1;
+    }
+    if(this.publishDate > obj.publishDate){
+      return 1;
+    }
+    return 0;
   }
 
   @override
-  public Book Clone(){
+  public Book clone(){
     Book b = new Book();
     b.title = this.title;
     b.comment = this.comment;
-    b.publishDate = (Date) this.publishDate.clone();
+    b.publishDate = this.publishDate.clone();
     return b;
   }
-
 }
