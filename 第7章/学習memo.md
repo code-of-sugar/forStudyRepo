@@ -22,6 +22,38 @@
  1. Class<?> cinfo = Class.forName(FQCN);
  2. Class<?> cinfo = クラス名.class;
  3. Class<?> cinfo = 変数名.getClass();
- 
+
  class は予約語とされてるからclassを変数名としたいときはclazz,clsなんかを使うのが一般的。
+ ## 例外処理
+   予期しないエラーに対する処理。
+  ### Javaに関する例外の種類
+   + Error:システム上重大な回復不能な異常な事象。メモリ不足、スタックオーバーフロー、JREの不具合
+   + RuntimeException:実行時に起こった例外で必ずしも対処しなくても良い事象。例外処理をしなくてもいいが、バグの可能性が残るので例外処理するのが良いこともある。
+   + Exception:上の二つ以外の例外。例外処理をする必要がある。
+ ## 例外処理を行う方法
+  try – catch – finally構文を使う。
+  メソッドのシグニチャにthrows句を用いることで、メソッドの呼び出し元に例外を投げることが可能。
+  ```
+  import java.io.FileNotFoundException;
+  import java.io.FileReader;
   
+  public class Main {
+  
+      public static void main(String[] args) {
+          String fileName = "test.txt";
+  
+          try {
+              throwsSample(fileName);
+          } catch (FileNotFoundException e) {
+              System.out.println(fileName + "を読み込みませんでした");
+          }
+          System.out.println("処理が終了しました");
+      }
+  
+      public static void throwsSample(String fileName) throws FileNotFoundException {
+          FileReader r = new FileReader(fileName);
+          System.out.println(fileName + "を読み込みました");
+      }
+  
+  }
+  ```
